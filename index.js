@@ -47,6 +47,7 @@ app.get('/', (req, res, next) => {
 		, engine: ua.engine
 		, device: ua.device
 		, cpu: ua.cpu
+	})
 	console.log(req.ip);
 	console.log(geo, ua);
 	console.log(site, action, id);
