@@ -28,7 +28,6 @@ app.get('/', (req, res, next) => {
 	var site = req.query.site;
 	var action = req.query.action;
 	var id = req.query.id;
-	var data = new datamodel(req.body);
 	var data = new datamodel({site: site
 		, action: action
 		, id: id
@@ -51,6 +50,7 @@ app.get('/', (req, res, next) => {
 	console.log(req.ip);
 	console.log(geo, ua);
 	console.log(site, action, id);
+	data.save();
 	res.send("ok");
 });
 
