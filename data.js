@@ -38,3 +38,7 @@ var model = mongoose.model('data', new mongoose.Schema({
 		architecture: {type: String}
 	}
 }));
+
+exports.getModel = function() {
+	return model;
+}
