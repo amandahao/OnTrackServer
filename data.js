@@ -10,7 +10,7 @@ var model = mongoose.model('data', new mongoose.Schema({
 	, country: {type: String}
 	, region: {type: String}
 	, city: {type: String}
-	, ll: {type: Array}
+	, ll: {type: String}
 	, metro: {type: Number}
 	, area: {type: Number}
 	, eu: {type: Number}
