@@ -28,6 +28,8 @@ app.get('/', (req, res, next) => {
 	var site = req.query.site;
 	var action = req.query.action;
 	var id = req.query.id;
+	var data = new datamodel(req.body);
+	var data = new datamodel({site: site, action: action, id: id, data: date, ip: ip, range: range, country: country, region: region, city: city, ll: ll, metro: metro, area: area, eu:eu, timezone: timezone, ua: ua, browser{name: name, version:version, major: major}, engine:{name: name, version:version}, device{vendor:vendor, model:model, type:type}, cpu{architecture:architecture}})
 	console.log(req.ip);
 	console.log(geo, ua);
 	console.log(site, action, id);
