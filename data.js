@@ -6,7 +6,7 @@ var model = mongoose.model('data', new mongoose.Schema({
 	, id: {type: String}
 	, date: {type: Date}
 	, ip: {type: String}
-	, range: {type: String}
+	// , range: {type: String}
 	, country: {type: String}
 	, region: {type: String}
 	, city: {type: String}
