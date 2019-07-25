@@ -32,21 +32,21 @@ app.get('/', (req, res, next) => {
 		, action: action
 		, id: id
 		, date: date
-		, ip: ip
-		, range: range
-		, country: country
-		, region: region
-		, city: city
-		, ll: ll
-		, metro: metro
-		, area: area
-		, eu:eu
-		, timezone: timezone
-		, ua: ua
-		, browser:{name: name, version:version, major: major}
-		, engine:{name: name, version:version}
-		, device:{vendor:vendor, model:model, type:type}
-		, cpu:{architecture:architecture}})
+		, ip: req.ip
+		, range: geo.range
+		, country: geo.country
+		, region: geo.region
+		, city: geo.city
+		, ll: geo.ll
+		, metro: geo.metro
+		, area: geo.area
+		, eu: geo.eu
+		, timezone: geo.timezone
+		, ua: ua.ua
+		, browser: ua.browser
+		, engine: ua.engine
+		, device: ua.device
+		, cpu: ua.cpu
 	console.log(req.ip);
 	console.log(geo, ua);
 	console.log(site, action, id);
