@@ -6,11 +6,11 @@ var model = mongoose.model('data', new mongoose.Schema({
 	, id: {type: String}
 	, date: {type: Date}
 	, ip: {type: String}
-	 , range: {type: Null}
+	// , range: {type: Boolean}
 	, country: {type: String}
 	, region: {type: String}
 	, city: {type: String}
-	, ll: {type: Array}
+	// , ll: {type: Array}
 	, metro: {type: Number}
 	, area: {type: Number}
 	, eu: {type: Number}
