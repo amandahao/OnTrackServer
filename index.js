@@ -16,10 +16,17 @@ var express = require('express')
 var app = express()
 	, port = parseInt(process.env.PORT || '8080')
 	, server = http.createServer(app)
+	, corsOptions = {
+      origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+    }
 ;
 
 app.set('trust proxy', true);
 
+app.use(cors(corsOptions));
 app.get('/', (req, res, next) => {
 	console.log('home');
 	var geo = geoip.lookup(req.ip);
