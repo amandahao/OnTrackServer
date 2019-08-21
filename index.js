@@ -37,9 +37,11 @@ app.get('/', (req, res, next) => {
 	var id = req.query.id;
 	var time = req.query.time;
 	var sim = req.query.sim;
+	var subject = req.query.subject;
 	var data = new datamodel({
 		site: site
 		, sim: sim
+		, subject: subject
 		, time: time
 		, action: action
 		, id: id
