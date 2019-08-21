@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var model = mongoose.model('data', new mongoose.Schema({
 	site: {type: String}
+	, time: {type: Number}
 	, action: {type: String}
 	, id: {type: String}
 	, date: {type: Date}
