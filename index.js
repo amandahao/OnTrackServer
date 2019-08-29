@@ -30,6 +30,11 @@ app.use(cors(corsOptions));
 app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
 	res.send("what up .)")
 })
+
+app.get('/analytics/:customerid', (req, res, next) => {
+	res.sendFile("./analytics.html")
+})
+
 app.get('/', (req, res, next) => {
 	console.log('home');
 	var geo = geoip.lookup(req.ip);
