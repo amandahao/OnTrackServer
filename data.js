@@ -5,6 +5,7 @@ var model = mongoose.model('data', new mongoose.Schema({
 	, subject: {type: String}
 	, sim: {type: Number}
 	, time: {type: Number}
+	, loadsimtime: {type: Number}
 	, action: {type: String}
 	, id: {type: String}
 	, date: {type: Date}

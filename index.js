@@ -38,8 +38,10 @@ app.get('/', (req, res, next) => {
 	var time = req.query.time;
 	var sim = req.query.sim;
 	var subject = req.query.subject;
+	var loadsimtime = req.query.loadsimtime;
 	var data = new datamodel({
 		site: site
+		, loadsimtime: loadsimtime
 		, sim: sim
 		, subject: subject
 		, time: time
