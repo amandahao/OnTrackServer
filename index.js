@@ -27,6 +27,9 @@ var app = express()
 app.set('trust proxy', true);
 
 app.use(cors(corsOptions));
+app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
+	res.send("what up .)")
+})
 app.get('/', (req, res, next) => {
 	console.log('home');
 	var geo = geoip.lookup(req.ip);
