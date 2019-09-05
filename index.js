@@ -32,7 +32,14 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 })
 
 app.get('/analytics/:customerid', (req, res, next) => {
-	res.sendFile("./analytics.html")
+	datamodel
+		.find({site: {$ne: null}, customedid: req.params.customerid})
+		.sort({_id: -1})
+		.select('site')
+		.exec((err, alldata) => {
+			if(err) return res.send("oops");
+			return alldata.map(d => `<div>${d.site}</div>`)
+		})
 })
 
 app.get('/', (req, res, next) => {
