@@ -33,7 +33,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 
 app.get('/analytics/:customerid', (req, res, next) => {
 	datamodel
-		.find({site: {$ne: null}, customedid: req.params.customerid})
+		.find({site: {$ne: null}, id: req.params.customerid})
 		.sort({_id: -1})
 		.select('site')
 		.exec((err, alldata) => {
