@@ -28,7 +28,10 @@ app.set('trust proxy', true);
 
 app.use(cors(corsOptions));
 app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
-	res.send("what up .)")
+	datamodel.find({site: {$ne: null}}).sort({_id: -1}).select('site').exec((err, alldata) => {
+		if(err) return res.send(err);
+		return alldata.map(d => `<div>${d.site}</div>`);
+	})
 })
 
 app.get('/analytics/:customerid', (req, res, next) => {
