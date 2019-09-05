@@ -32,6 +32,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 		.find({site: {$ne: null}})
 		.sort({_id: -1})
 		.select('site')
+		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send(err);
 			return alldata.map(d => `<div>${d.site}</div>`);
@@ -43,6 +44,7 @@ app.get('/analytics/:customerid', (req, res, next) => {
 		.find({site: {$ne: null}, id: req.params.customerid})
 		.sort({_id: -1})
 		.select('site')
+		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
 			return alldata.map(d => `<div>${d.site}</div>`)
