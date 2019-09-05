@@ -59,10 +59,10 @@ app.get('/', (req, res, next) => {
 	var loadsimtime = req.query.loadsimtime;
 	var data = new datamodel({
 		site: site
-		, loadsimtime: loadsimtime
-		, sim: sim
+		, loadsimtime: loadsimtime || -1
+		, sim: sim || -1
 		, subject: subject
-		, time: time
+		, time: time || -1
 		, action: action
 		, id: id
 		, date: date
@@ -72,19 +72,16 @@ app.get('/', (req, res, next) => {
 		, region: geo.region
 		, city: geo.city
 		, ll: geo.ll
-		, metro: geo.metro
-		, area: geo.area
-		, eu: geo.eu
-		, timezone: geo.timezone
+		, metro: geo.metro || -1
+		, area: geo.area || -1
+		, eu: geo.eu || -1
+		, timezone: geo.timezone || -1
 		, ua: ua.ua
 		, browser: ua.browser
 		, engine: ua.engine
 		, device: ua.device
 		, cpu: ua.cpu
 	})
-	console.log(req.ip);
-	console.log(geo, ua);
-	console.log(site, action, id);
 	data.save();
 	res.send("ok");
 });
