@@ -64,7 +64,7 @@ app.get('/analytics/:customerid', (req, res, next) => {
 			        o[domain]++;
 			    return o;
 			}, {})
-			html = html.replace(`{{DATA}}`, Object.keys(domainData)(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
+			html = html.replace(`{{DATA}}`, Object.keys(domainData).map(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
 			res.send(html);
 		})
 })
