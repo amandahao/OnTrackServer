@@ -35,7 +35,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send(err);
-			return alldata.map(d => `<div>${d.site}</div>`);
+			return res.send(alldata.map(d => `<div>${d.site}</div>`));
 		})
 })
 
@@ -47,7 +47,7 @@ app.get('/analytics/:customerid', (req, res, next) => {
 		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
-			return alldata.map(d => `<div>${d.site}</div>`)
+			return res.send(alldata.map(d => `<div>${d.site}</div>`));
 		})
 })
 
