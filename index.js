@@ -47,7 +47,9 @@ app.get('/analytics/:customerid', (req, res, next) => {
 		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
-			return res.send(alldata.map(d => `<div>${d.site}</div>`));
+			var html = fs.readFileSync("analytics.html", "utf8");
+			html = html.replace(`{{DATA}}`, alldata.map(d => `<div>${d.site}</div>`));
+			res.send(html);
 		})
 })
 
