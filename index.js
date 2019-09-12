@@ -34,8 +34,17 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 		.select('site')
 		.limit(100)
 		.exec((err, alldata) => {
-			if(err) return res.send(err);
-			return res.send(alldata.map(d => `<div>${d.site}</div>`));
+			if(err) return res.send("oops");
+			var html = fs.readFileSync("dashboard.html", "utf8");
+			var domainData = alldata.reduce((o, r) => {
+			    var domainParts = r.site.split('/');
+			     var domain = domainParts[2];
+			    if(!o[domain]) o[domain] = 0;
+			        o[domain]++;
+			    return o;
+			}, {})
+			html = html.replace(`{data}`, domainData).join('');
+			res.send(html);
 		})
 })
 
