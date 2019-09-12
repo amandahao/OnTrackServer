@@ -43,12 +43,12 @@ app.get('/analytics/:customerid', (req, res, next) => {
 	datamodel
 		.find({site: {$ne: null}, id: req.params.customerid})
 		.sort({_id: -1})
-		.select('site')
+		.select('site time')
 		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
 			var html = fs.readFileSync("analytics.html", "utf8");
-			html = html.replace(`{{DATA}}`, alldata.map(d => `<div>${d.site}</div>`));
+			html = html.replace(`{{DATA}}`, alldata.map(d => `<div>${d.site}</div>`).join(''));
 			res.send(html);
 		})
 })
