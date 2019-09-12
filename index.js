@@ -43,7 +43,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 			        o[domain]++;
 			    return o;
 			}, {})
-			html = html.replace(`{data}`, domainData);
+			html = html.replace(`{domainData}`, JSON.stringify(domainData));
 			res.send(html);
 		})
 })
