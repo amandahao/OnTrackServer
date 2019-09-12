@@ -57,7 +57,14 @@ app.get('/analytics/:customerid', (req, res, next) => {
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
 			var html = fs.readFileSync("analytics.html", "utf8");
-			html = html.replace(`{{DATA}}`, alldata.map(d => `<div>${d.site}</div>`).join(''));
+			var domainData = alldata.reduce((o, r) => {
+			    var domainParts = r.site.split('/');
+			     var domain = domainParts[2];
+			    if(!o[domain]) o[domain] = 0;
+			        o[domain]++;
+			    return o;
+			}, {})
+			html = html.replace(`{{DATA}}`, Object.keys(domainData)(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
 			res.send(html);
 		})
 })
