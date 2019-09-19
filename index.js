@@ -43,7 +43,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 			        o[domain]++;
 			    return o;
 			}, {})
-			html = html.replace(`{domainData}`, JSON.stringify(Object.keys(domainData).map(d => [{domain: d, count: domainData[d]}])));
+			html = html.replace(`{domainData}`, Object.keys(domainData).map(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
 			res.send(html);
 		})
 })
