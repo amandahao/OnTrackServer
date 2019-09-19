@@ -27,7 +27,7 @@ var app = express()
 app.set('trust proxy', true);
 
 app.use(cors(corsOptions));
-app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
+app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsidomain', (req, res, next) => {
 	datamodel
 		.find({site: {$ne: null}})
 		.sort({_id: -1})
@@ -47,6 +47,39 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 			res.send(html);
 		})
 })
+
+app.use(cors(corsOptions));
+app.get('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', (req, res, next) => {
+	newUsers
+		.aggregate([
+    		{$match: {id:  {$ne: null } } }
+    		, {$project: {date: 1, id: 1} }
+    		, { $group: 
+	        	{
+		            _id : { 
+		               month: { $month: "$date" }
+		               , day: { $dayOfMonth: "$date" }
+		               , year: { $year: "$date" } 
+		              }
+		              , customers: {$addToSet: "$id" }
+	          	}
+	          }
+		])
+		.exec((err, alldata) => {
+			if(err) return res.send("oops");
+			var html = fs.readFileSync("dashboard.html", "utf8");
+			var domainData = alldata.reduce((o, r) => {
+			    var domainParts = r.site.split('/');
+			     var domain = domainParts[2];
+			    if(!o[domain]) o[domain] = 0;
+			        o[domain]++;
+			    return o;
+			})
+			html = html.replace(`{domainData}`, JSON.stringify(Object.keys(domainData).map(d => [{domain: d, count: domainData[d]}])));
+			res.send(html);
+		})
+})
+
 
 app.get('/analytics/:customerid', (req, res, next) => {
 	datamodel
