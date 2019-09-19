@@ -48,8 +48,42 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 		})
 })
 
-app.get('/analytics/:customerid', (req, res, next) => {
+app.get('/analytics/populardomains/:customerid', (req, res, next) => {
 	datamodel
+		.find({site: {$ne: null}, id: req.params.customerid})
+		.sort({_id: -1})
+		.select('site time')
+		.limit(100)
+		.exec((err, alldata) => {
+			if(err) return res.send("oops");
+			var html = fs.readFileSync("analytics.html", "utf8");
+			var domainData = alldata.reduce((o, r) => {
+			    var domainParts = r.site.split('/');
+			     var domain = domainParts[2];
+			    if(!o[domain]) o[domain] = 0;
+			        o[domain]++;
+			    return o;
+			}, {})
+			html = html.replace(`{{DATA}}`, Object.keys(domainData).map(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
+			res.send(html);
+		})
+})
+
+app.get('/analytics/sitesblocked/:customerid', (req, res, next) => {
+	datamodel
+	.aggregate([
+		{$match: {id:  {$ne: null } } }
+		, {$project: {date: 1, id: 1} }
+		, { $group:
+				{_id : {
+					month: { $month: "$date" }
+					, day: { $dayOfMonth: "$date" }
+					, year: { $year: "$date" }
+					}
+					, customers: {$addToSet: "$id" }
+				}
+		}
+	])
 		.find({site: {$ne: null}, id: req.params.customerid})
 		.sort({_id: -1})
 		.select('site time')
