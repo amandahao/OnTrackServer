@@ -70,7 +70,6 @@ app.get('/analytics/populardomains/:customerid', (req, res, next) => {
 })
 
 app.get('/analytics/sitesblocked/:customerid', (req, res, next) => {
-
 	datamodel
 		.aggregate([
 			{$match: {id:  {$ne: null } } }
