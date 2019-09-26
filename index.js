@@ -25,6 +25,7 @@ var app = express()
 ;
 
 app.set('trust proxy', true);
+app.use(express.static('public'));
 
 app.use(cors(corsOptions));
 app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
@@ -56,16 +57,16 @@ app.get('/analytics/populardomains/:customerid', (req, res, next) => {
 		.limit(100)
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
-			var html = fs.readFileSync("analytics.html", "utf8");
-			var domainData = alldata.reduce((o, r) => {
-			    var domainParts = r.site.split('/');
-			     var domain = domainParts[2];
-			    if(!o[domain]) o[domain] = 0;
-			        o[domain]++;
-			    return o;
-			}, {})
-			html = html.replace(`{{DATA}}`, Object.keys(domainData).map(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
-			res.send(html);
+			// var html = fs.readFileSync("analytics.html", "utf8");
+			// var domainData = alldata.reduce((o, r) => {
+			//     var domainParts = r.site.split('/');
+			//      var domain = domainParts[2];
+			//     if(!o[domain]) o[domain] = 0;
+			//         o[domain]++;
+			//     return o;
+			// }, {})
+			// html = html.replace(`{{DATA}}`, Object.keys(domainData).map(d => `<div><span>${d}</span><span>${domainData[d]}</span></div>`).join(''));
+			res.send(JSON.stringify(alldata));
 		})
 })
 
@@ -86,9 +87,32 @@ app.get('/analytics/sitesblocked/:customerid', (req, res, next) => {
 		])
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
-			var html = fs.readFileSync("analytics.html", "utf8");
-			html = html.replace(`{{DATA}}`, JSON.stringify(alldata));
-			res.send(html);
+			// var html = fs.readFileSync("analytics.html", "utf8");
+			// html = html.replace(`{{DATA}}`, JSON.stringify(alldata));
+			res.send(JSON.stringify(alldata));
+		})
+})
+
+app.get('/analytics/timeontrack/:customerid', (req, res, next) => {
+	datamodel
+		.aggregate([
+			{$match: {id:  {$ne: null } } }
+			, {$project: {date: 1, id: 1} }
+			, { $group:
+				{_id : {
+					month: { $month: "$date" }
+					, day: { $dayOfMonth: "$date" }
+					, year: { $year: "$date" }
+					}
+					, customers: {$addToSet: "$id" }
+				}
+			}
+		])
+		.exec((err, alldata) => {
+			if(err) return res.send("oops");
+			// var html = fs.readFileSync("analytics.html", "utf8");
+			// html = html.replace(`{{DATA}}`, JSON.stringify(alldata));
+			res.send(JSON.stringify(alldata));
 		})
 })
 
@@ -145,4 +169,4 @@ function startServer() {
 	server.listen(port);
 }
 
-mongoose.connect(configs.dbUri, startServer);
+mongoose.connect(configs.dbUri.trim(), startServer);
