@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<div id='users'></div>
+		<div id='domain'></div>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script>
+			function getData(url, callback) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', url);
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if(xhr.status > 299) return; 
+					if(xhr.readyState != 4) return; 
+					callback(JSON.parse(xhr.response)); 
+				}
+			}
+
+			getData('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsidomain', plotDomains)
+
+			function plotDomains(data) {
+				var sites = data.map(d => d.site.split('/')[2])
+	         	var y = sites.map(s => 0);
+	          	var plotdata = [{
+		            histfunc: "count",
+		            y: y,
+		            x: sites,
+		            type: "histogram",
+		            name: "count" //sum function too
+	          	}]
+
+	          	Plotly.plot('domain', plotdata, {}, {showSendToCloud: true})
+			}
+
+			// getData('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', 'domain', plotUsers) 
+
+		</script>	
+	</body>
+</html>
