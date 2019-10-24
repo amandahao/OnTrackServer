@@ -2,8 +2,15 @@
 <html>
 	<head></head>
 	<body>
-		<div id='users'></div>
+		<div id='dailyDisplay'>
+			<h3>Daily Users</h3>
+		</div>
+		<div id='dailyUsers'></div>
 		<div id='domain'></div>
+		<div id='usersDisplay'>
+			<h3>Total Users</h3>
+		</div>
+		<div id='totalUsers'></div>
 		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 		<script>
 			function getData(url, callback) {
@@ -13,11 +20,15 @@
 				xhr.onreadystatechange = function() {
 					if(xhr.status > 299) return; 
 					if(xhr.readyState != 4) return; 
+					console.log(xhr.response)
 					callback(JSON.parse(xhr.response)); 
 				}
 			}
 
 			getData('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsidomain', plotDomains)
+
+			getData('/oiqwuroiuoiuoizyduifyiuehrpsislkjzdmnfmwbegkejhsoieurioeuoirhskjdbfkjzdhfkejtsioeslkjzoiutotalUsers', totalUsers)
+
 
 			function plotDomains(data) {
 				var sites = data.map(d => d.site.split('/')[2])
@@ -33,6 +44,10 @@
 	          	Plotly.plot('domain', plotdata, {}, {showSendToCloud: true})
 			}
 
+
+			function totalUsers(data) {
+				document.querySelector('#totalUsers').innerHTML = data.count;
+			}
 			// getData('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', 'domain', plotUsers) 
 
 		</script>	

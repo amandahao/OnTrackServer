@@ -41,7 +41,7 @@ app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjk
 })
 
 app.use(cors(corsOptions));
-app.get('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', (req, res, next) => {
+app.get('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfdailyUsers', (req, res, next) => {
 	datamodel
 		.aggregate([
     		{$match: {id:  {$ne: null } } }
@@ -76,6 +76,18 @@ app.get('/aslkdjflaksjdl;fkjsalkdjiozljlkjlskajdaskdjfksjhakfljhewaiufhoudzhfbei
 			if(err) return res.send("oops");
 			res.send(JSON.stringify(alldata));
 		})
+})
+
+app.use(cors(corsOptions));
+app.get('/oiqwuroiuoiuoizyduifyiuehrpsislkjzdmnfmwbegkejhsoieurioeuoirhskjdbfkjzdhfkejtsioeslkjzoiutotalUsers', (req, res, next) => {
+	datamodel
+		.distinct('id')
+		.exec((err, alldata) => {
+			if(err) return res.send("oops");
+			
+			res.send(JSON.stringify({count: alldata.length}));
+		})
+
 })
 
 app.get('/analytics/:customerid', (req, res, next) => {
