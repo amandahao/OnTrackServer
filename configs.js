@@ -1,3 +1,3 @@
 const fs = require('fs');
 
-exports.dbUri = process.env.ATLAS_URI || fs.readFileSync("db.txt", "utf8");
+exports.dbUri = process.env.MONGODB_URI || fs.readFileSync("db.txt", "utf8");
