@@ -53,20 +53,29 @@
 			// getData('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', 'domain', plotUsers) 
 			function dailyUsers(data){
 				var days = data.reduce((a, o) => {
-					const c = o.customers;
-					a = a.concat(c);
+					const customers = o.customers;
+					customers.forEach(c => {
+						a[c] = a[c] || 0;
+						a[c]++;
+					})
 					return a;
-				}, [])
-	         	var users = days.map(s => 0);
-	          	var plotdata = [{
-		            histfunc: "count",
-		            y: users,
-		            x: days,
-		            type: "histogram",
-		            name: "count" //sum function too
-	          	}]
+				}, {})
+	         	var userDayCounts = Object.keys(days).reduce((o, k) => {
+					 const c = days[k];
+					 o[c] = o[c] || 0;
+					 o[c]++
+					 return o;
+				}, {});
+				document.querySelector('#dailyUsers').innerHTML = `<pre>${JSON.stringify(userDayCounts, null, 2)}</pre>`
+	          	// var plotdata = [{
+		        //     histfunc: "sum",
+		        //     y: users,
+		        //     x: days,
+		        //     type: "histogram",
+		        //     name: "sum" //sum function too
+	          	// }]
 
-	          	Plotly.plot('dailyUsers', plotdata, {}, {showSendToCloud: true})
+	          	// Plotly.plot('dailyUsers', plotdata, {}, {showSendToCloud: true})
 			}
 		</script>	
 	</body>
