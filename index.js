@@ -63,6 +63,8 @@ app.get('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbk
 		})
 })
 
+
+
 app.use(cors(corsOptions));
 app.get('/aslkdjflaksjdl;fkjsalkdjiozljlkjlskajdaskdjfksjhakfljhewaiufhoudzhfbeiushiurjksbebetimeToBlock', (req, res, next) => {
 	datamodel
@@ -160,7 +162,7 @@ app.get('/analytics/sitesblocked/:customerid', (req, res, next) => {
 
 app.get('/', (req, res, next) => {
 	console.log('home');
-	var geo = geoip.lookup(req.ip);
+	var geo = geoip.lookup(req.ip) || {};
 	var ua = parser(req.headers['user-agent']);
 	var date = new Date();
 	var site = req.query.site;

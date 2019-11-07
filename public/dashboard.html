@@ -20,12 +20,14 @@
 				xhr.onreadystatechange = function() {
 					if(xhr.status > 299) return; 
 					if(xhr.readyState != 4) return; 
-					console.log(xhr.response)
+					
 					callback(JSON.parse(xhr.response)); 
 				}
 			}
 
 			getData('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsidomain', plotDomains)
+
+			getData('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfdailyUsers', dailyUsers)
 
 			getData('/oiqwuroiuoiuoizyduifyiuehrpsislkjzdmnfmwbegkejhsoieurioeuoirhskjdbfkjzdhfkejtsioeslkjzoiutotalUsers', totalUsers)
 
@@ -49,7 +51,23 @@
 				document.querySelector('#totalUsers').innerHTML = data.count;
 			}
 			// getData('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbkjshdlzuejcjahdywiszldyilyablksdkljfusers', 'domain', plotUsers) 
+			function dailyUsers(data){
+				var days = data.reduce((a, o) => {
+					const c = o.customers;
+					a = a.concat(c);
+					return a;
+				}, [])
+	         	var users = days.map(s => 0);
+	          	var plotdata = [{
+		            histfunc: "count",
+		            y: users,
+		            x: days,
+		            type: "histogram",
+		            name: "count" //sum function too
+	          	}]
 
+	          	Plotly.plot('dailyUsers', plotdata, {}, {showSendToCloud: true})
+			}
 		</script>	
 	</body>
 </html>
