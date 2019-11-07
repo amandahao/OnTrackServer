@@ -174,10 +174,10 @@ app.get('/', (req, res, next) => {
 	var loadsimtime = req.query.loadsimtime;
 	var data = new datamodel({
 		site: site
-		, loadsimtime: loadsimtime || -1
-		, sim: sim || -1
+		, loadsimtime: isNan(loadsimtime) ? -1 : loadsimtime
+		, sim: isNan(sim) ? -1 : sim
 		, subject: subject
-		, time: time || -1
+		, time: isNan(time) ? -1 : time
 		, action: action
 		, id: id
 		, date: date
@@ -187,10 +187,10 @@ app.get('/', (req, res, next) => {
 		, region: geo.region
 		, city: geo.city
 		, ll: geo.ll
-		, metro: geo.metro || -1
-		, area: geo.area || -1
-		, eu: geo.eu || -1
-		, timezone: geo.timezone || -1
+		, metro: isNan(geo.metro) ? -1 : geo.metro
+		, area: isNan(geo.area) ? -1 : geo.area
+		, eu: isNan(geo.eu) ? -1 : geo.eu
+		, timezone: geo.timezone
 		, ua: ua.ua
 		, browser: ua.browser
 		, engine: ua.engine
