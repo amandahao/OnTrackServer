@@ -171,12 +171,16 @@ app.get('/', (req, res, next) => {
 	var time = req.query.time;
 	var sim = req.query.sim;
 	var subject = req.query.subject;
+	var name = req.query.name;
+	var email = req.query.email;
 	var loadsimtime = req.query.loadsimtime;
 	var data = new datamodel({
 		site: site
 		, loadsimtime: isNaN(loadsimtime) ? -1 : loadsimtime
 		, sim: isNaN(sim) ? -1 : sim
 		, subject: subject
+		, name: name
+		, email: email
 		, time: isNaN(time) ? -1 : time
 		, action: action
 		, id: id

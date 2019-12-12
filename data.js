@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var model = mongoose.model('data', new mongoose.Schema({
 	site: {type: String}
 	, subject: {type: String}
+	, name: {type: String}
+	, email: {type: String}
 	, sim: {type: Number}
 	, time: {type: Number}
 	, loadsimtime: {type: Number}
