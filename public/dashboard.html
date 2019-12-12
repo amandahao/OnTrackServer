@@ -78,7 +78,7 @@
 
 	          	// Plotly.plot('dailyUsers', plotdata, {}, {showSendToCloud: true})
 			}
-			function bubblyUsers(data){
+			function bubblyUsers(){
 				var trace1 = {
 				x: [1, 2, 3, 4],
 				y: [10, 11, 12, 13],
@@ -99,6 +99,7 @@
 				
 				Plotly.newPlot('bubblyUsers', data, layout);
 			}
+			bubblyUsers();
 		</script>	
 	</body>
 </html>
