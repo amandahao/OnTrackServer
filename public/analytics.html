@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <script>
+    </script>
+  </head>
+	<body>
+		<div id='populardomains'></div>
+		<div id='sitesblocked'></div>
+		<div id='timeontrack'></div>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script>
+			function getData(url, id) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', url);
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if(xhr.status > 299) return;
+					if(xhr.readyState !== 4) return;
+					var data  = JSON.parse(xhr.response);
+          var sites = data.map(d => d.site.split('/')[2])
+          var y = sites.map(s => 0);
+          var plotdata = [{
+            histfunc: "count",
+            y: y,
+            x: sites,
+            type: "histogram",
+            name: "count" //sum function too
+          }]
+
+          Plotly.plot('populardomains', plotdata, {}, {showSendToCloud: true})
+				}
+			}
+
+      var cid = location.search.split('=')[1];
+			getData('/analytics/populardomains/' + cid, 'populardomains');
+			getData('/analytics/sitesblocked/' + cid, 'sitesblocked');
+			getData('/ganalytics/timeontrack/' + cid, 'timeontrack');
+		</script>
+	</body>
+</html>

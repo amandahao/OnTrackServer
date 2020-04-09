@@ -46,12 +46,12 @@ app.get('/wekjflskdjlkasjdizoieghiwoelketwioyf0czysho3bt2oi3alsdjklzdfo8hq3wjgbk
 		.aggregate([
     		{$match: {id:  {$ne: null } } }
     		, {$project: {date: 1, id: 1} }
-    		, { $group: 
+    		, { $group:
 	        	{
-		            _id : { 
+		            _id : {
 		               month: { $month: "$date" }
 		               , day: { $dayOfMonth: "$date" }
-		               , year: { $year: "$date" } 
+		               , year: { $year: "$date" }
 		              }
 		              , customers: {$addToSet: "$id" }
 	          	}
@@ -69,8 +69,8 @@ app.use(cors(corsOptions));
 app.get('/aslkdjflaksjdl;fkjsalkdjiozljlkjlskajdaskdjfksjhakfljhewaiufhoudzhfbeiushiurjksbebetimeToBlock', (req, res, next) => {
 	datamodel
 		.aggregate([
-    		{$match: 
-    			{id:  {$ne: null } 
+    		{$match:
+    			{id:  {$ne: null }
         		, sim: {$ne: null} } }
     			, {$project: {sim: 1, id: 1} }
 		])
@@ -86,7 +86,7 @@ app.get('/oiqwuroiuoiuoizyduifyiuehrpsislkjzdmnfmwbegkejhsoieurioeuoirhskjdbfkjz
 		.distinct('id')
 		.exec((err, alldata) => {
 			if(err) return res.send("oops");
-			
+
 			res.send(JSON.stringify({count: alldata.length}));
 		})
 
